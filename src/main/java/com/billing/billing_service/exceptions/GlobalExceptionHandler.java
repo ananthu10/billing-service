@@ -65,7 +65,7 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<Map<String, Object>> handleAccessDeniedException(NotPermitedException ex) {
-        return new ResponseEntity<>(buildErrorResponse(HttpStatus.FORBIDDEN, "You do not have the required permissions to perform this action."), HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(buildErrorResponse(HttpStatus.FORBIDDEN, "You do not have the required permissions to perform this action."+ex.getMessage()), HttpStatus.FORBIDDEN);
     }
 
 }
