@@ -4,6 +4,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -57,15 +58,19 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NotPermitedException.class)
     public ResponseEntity<Map<String, Object>> handleNotPermitedException(NotPermitedException ex) {
-        return new ResponseEntity<>(buildErrorResponse(HttpStatus.FORBIDDEN,  ex.getMessage()), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(buildErrorResponse(HttpStatus.FORBIDDEN,  ex.getMessage()), HttpStatus.FORBIDDEN);
     }
     @ExceptionHandler(InvoiceNotApprovedException.class)
     public ResponseEntity<Map<String, Object>> handleInvoiceNotApprovedException(InvoiceNotApprovedException ex) {
-        return new ResponseEntity<>(buildErrorResponse(HttpStatus.FORBIDDEN,  ex.getMessage()), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(buildErrorResponse(HttpStatus.FORBIDDEN,  ex.getMessage()), HttpStatus.FORBIDDEN);
     }
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<Map<String, Object>> handleAccessDeniedException(NotPermitedException ex) {
         return new ResponseEntity<>(buildErrorResponse(HttpStatus.FORBIDDEN, "You do not have the required permissions to perform this action."+ex.getMessage()), HttpStatus.FORBIDDEN);
+    }
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<Map<String, Object>> handleBadCredentialsException(BadCredentialsException ex) {
+        return new ResponseEntity<>(buildErrorResponse(HttpStatus.UNAUTHORIZED, "Invalid Username "+ex.getMessage()), HttpStatus.UNAUTHORIZED);
     }
 
 }

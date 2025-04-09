@@ -1,1 +1,2 @@
-./mvnw clean verify sonar:sonar "-Dsonar.projectKey=billing-service" "-Dsonar.projectName=billing-service" "-Dsonar.host.url=http://localhost:9000" "-Dsonar.token=sqp_1ba6d65300077d5ce56ba4def2779503de65fd81"
+./mvnw clean verify sonar:sonar "-Dsonar.projectKey=billing-service" "-Dsonar.projectName=billing-service" "-Dsonar.host.url=http://localhost:9000" "-Dsonar.token=sqp_4eacff2705b83027e0c315fc39ed6dca6cbb2f65"
+s

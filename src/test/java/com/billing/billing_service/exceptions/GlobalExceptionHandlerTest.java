@@ -82,7 +82,7 @@ class GlobalExceptionHandlerTest {
         NotPermitedException ex = new NotPermitedException("Not permitted");
         ResponseEntity<Map<String, Object>> response = handler.handleNotPermitedException(ex);
 
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
         assertTrue(response.getBody().get("message").toString().contains("Not permitted"));
     }
 
@@ -91,7 +91,7 @@ class GlobalExceptionHandlerTest {
         InvoiceNotApprovedException ex = new InvoiceNotApprovedException("Invoice not approved");
         ResponseEntity<Map<String, Object>> response = handler.handleInvoiceNotApprovedException(ex);
 
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
         assertTrue(response.getBody().get("message").toString().contains("Invoice not approved"));
     }
 
