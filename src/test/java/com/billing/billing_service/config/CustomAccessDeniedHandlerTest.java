@@ -46,9 +46,12 @@ class CustomAccessDeniedHandlerTest {
         ObjectMapper mapper = new ObjectMapper();
         Map<String, Object> responseJson = mapper.readValue(responseWriter.toString(), Map.class);
 
-        assertThat(responseJson).containsKeys("error", "message", "timestamp", "status");
-        assertThat(responseJson.get("error")).isEqualTo("Forbidden");
-        assertThat(responseJson.get("message")).isEqualTo("You do not have permission to access this resource.");
-        assertThat(responseJson.get("status")).isEqualTo(403);
+        assertThat(responseJson)
+                .containsEntry("error", "Forbidden")
+                .containsEntry("message", "You do not have permission to access this resource.")
+                .containsKeys("timestamp", "status");
+
+        assertThat((Integer) responseJson.get("status")).isEqualTo(403);
+
     }
 }

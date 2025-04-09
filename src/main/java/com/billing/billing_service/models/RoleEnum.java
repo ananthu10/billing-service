@@ -1,6 +1,8 @@
 package com.billing.billing_service.models;
 
-public enum RoleEnum {
+import java.io.Serializable;
+
+public enum RoleEnum implements Serializable  {
     SELLER,
     BUYER,
     SUPER_ADMIN

@@ -29,9 +29,8 @@ class ApprovalServiceClientImplTest {
         PaymentInformationDTO paymentDTO = new PaymentInformationDTO(); // Add fields if needed
         when(approvalServiceConfig.getUrl()).thenReturn("http://mock-approval-service");
         when(restTemplate.postForEntity(
-                eq("http://mock-approval-service"),
-                eq(paymentDTO),
-                eq(Boolean.class)
+                "http://mock-approval-service",
+                paymentDTO, Boolean.class
         )).thenReturn(ResponseEntity.ok(true));
 
         boolean result = approvalServiceClient.isPaymentApproved(paymentDTO);
@@ -73,7 +72,7 @@ class ApprovalServiceClientImplTest {
     void testFallbackApproval_ReturnsFalseAndLogsError() {
 
         Throwable exception = new RuntimeException("Service down");
-        boolean result = approvalServiceClient.fallbackApproval( exception);
+        boolean result = approvalServiceClient.fallbackApproval(exception);
 
         assertFalse(result);
     }

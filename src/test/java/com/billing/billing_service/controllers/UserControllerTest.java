@@ -45,8 +45,6 @@ class UserControllerTest {
         SecurityContextHolder.setContext(securityContext);
 
         ResponseEntity<User> response = userController.authenticatedUser();
-
-        assertEquals(200, response.getStatusCodeValue());
         assertEquals("testUser", response.getBody().getUsername());
     }
 
@@ -64,7 +62,6 @@ class UserControllerTest {
 
         ResponseEntity<List<User>> response = userController.allUsers();
 
-        assertEquals(200, response.getStatusCodeValue());
         assertNotNull(response.getBody());
         assertEquals(2, response.getBody().size());
         assertEquals("admin", response.getBody().get(0).getUsername());

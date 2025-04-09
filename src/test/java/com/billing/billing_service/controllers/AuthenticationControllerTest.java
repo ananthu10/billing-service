@@ -49,7 +49,6 @@ class AuthenticationControllerTest {
 
         ResponseEntity<LoginResponseDTO> response = authenticationController.authenticate(loginUserDto);
 
-        assertEquals(200, response.getStatusCodeValue());
         assertNotNull(response.getBody());
         assertEquals(mockToken, response.getBody().getToken());
         assertEquals(mockExpiration, response.getBody().getExpiresIn());

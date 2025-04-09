@@ -12,16 +12,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.AccessDeniedException;
 
-import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -174,13 +174,13 @@ class InvoiceServiceImplTest {
     @Test
     void testUpdateInvoice_ByBuyer_Success() {
 
-        User buyer = new User();
-        buyer.setId(1);
-        buyer.setRole(new Role().setName(RoleEnum.BUYER));
+        User buyerUser = new User();
+        buyerUser.setId(1);
+        buyerUser.setRole(new Role().setName(RoleEnum.BUYER));
 
-        User seller = new User();
-        seller.setId(1);
-        seller.setRole(new Role().setName(RoleEnum.SELLER));
+        User sellerUser = new User();
+        sellerUser.setId(1);
+        sellerUser.setRole(new Role().setName(RoleEnum.SELLER));
 
         when(auditorAware.getCurrentAuditor()).thenReturn(Optional.of(buyer));
 
@@ -194,10 +194,10 @@ class InvoiceServiceImplTest {
 
 
         invoice.setBillingLines(new ArrayList<>(List.of(existingLine)));
-        invoice.setSeller(seller);
-        invoice.setBuyer(buyer);
+        invoice.setSeller(sellerUser);
+        invoice.setBuyer(buyerUser);
         when(invoiceRepository.findById(invoice.getId())).thenReturn(Optional.of(invoice));
-        when(auditorAware.getCurrentAuditor()).thenReturn(Optional.of(buyer));
+        when(auditorAware.getCurrentAuditor()).thenReturn(Optional.of(buyerUser));
 
         BillingLine updatedLine = new BillingLine();
         updatedLine.setId(1L);
@@ -243,18 +243,19 @@ class InvoiceServiceImplTest {
     @Test
     void testAuthorizeBuyerOrSuperAdminThrowsAccessDeniedException() {
 
-        Invoice invoice = new Invoice();
-        User seller = new User();
-        seller.setId(1);
-        invoice.setSeller(seller);
+        Invoice invoiceEntity = new Invoice();
+        User sellerUser = new User();
+        sellerUser.setId(3);
+        invoiceEntity.setSeller(sellerUser);
 
         User unauthorizedUser = new User();
-        unauthorizedUser.setRole(new Role().setName(RoleEnum.BUYER)); // or any role other than SUPER_ADMIN
+        unauthorizedUser.setId(1);
+        unauthorizedUser.setRole(new Role().setName(RoleEnum.BUYER));
 
         when(auditorAware.getCurrentAuditor()).thenReturn(Optional.of(unauthorizedUser));
 
         assertThrows(AccessDeniedException.class, () -> {
-            invoiceService.authorizeBuyerOrSuperAdmin(invoice);
+            invoiceService.authorizeBuyerOrSuperAdmin(invoiceEntity);
         });
     }
 

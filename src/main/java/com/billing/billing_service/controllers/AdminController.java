@@ -21,8 +21,7 @@ public class AdminController {
         this.userService = userService;
     }
 
-    @PostMapping
-    @RequestMapping("/createUser")
+    @PostMapping("/createUser")
     @PreAuthorize("hasRole('SUPER_ADMIN')")
     public ResponseEntity<User> createUser(@RequestBody RegisterUserDto registerUserDto) {
         User createdAdmin = userService.createUser(registerUserDto);

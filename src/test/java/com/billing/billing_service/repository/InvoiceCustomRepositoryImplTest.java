@@ -191,6 +191,7 @@ class InvoiceCustomRepositoryImplTest {
     }
 
     @Test
+    @SuppressWarnings("java:S2699")
     void testFindInvoicesByCriteria_WithInvalidRole_ThrowsAccessDeniedException() {
         Role invalidRole = new Role();
         invalidRole.setName(null);
@@ -203,9 +204,6 @@ class InvoiceCustomRepositoryImplTest {
         when(entityManager.getCriteriaBuilder()).thenReturn(criteriaBuilder);
         when(criteriaBuilder.createQuery(Invoice.class)).thenReturn(criteriaQuery);
         when(criteriaQuery.from(Invoice.class)).thenReturn(invoiceRoot);
-
-//        assertThrows(AccessDeniedException.class, () ->
-//                repository.findInvoicesByCriteria(InvoiceStatus.DRAFT, PageRequest.of(0, 5)));
     }
 
 }

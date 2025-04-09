@@ -4,11 +4,16 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Date;
 
 @Table(name = "roles")
 @Entity
-public class Role {
+public class Role implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 2405172041950251807L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roles_seq_gen")
     @SequenceGenerator(name = "roles_seq_gen", sequenceName = "roles_seq", allocationSize = 1)
