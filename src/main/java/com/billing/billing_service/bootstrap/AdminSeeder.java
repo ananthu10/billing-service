@@ -5,6 +5,7 @@ import com.billing.billing_service.models.RoleEnum;
 import com.billing.billing_service.models.User;
 import com.billing.billing_service.repository.RoleRepository;
 import com.billing.billing_service.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -24,7 +25,12 @@ public class AdminSeeder implements ApplicationListener<ContextRefreshedEvent> {
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private static final String PASSWORD = "123456";
+
+
+    @Value("${admin.super.username}")
+    private String adminUsername;
+    @Value("${admin.super.password}")
+    private String adminPassword;
 
     public AdminSeeder(
             RoleRepository roleRepository,
@@ -49,7 +55,7 @@ public class AdminSeeder implements ApplicationListener<ContextRefreshedEvent> {
             return;
         }
 
-        String adminEmail = "super.admin@email.com";
+        String adminEmail = adminUsername;
         Optional<User> optionalUser = userRepository.findByEmail(adminEmail);
         if (optionalUser.isPresent()) {
             logger.info("Admin user already exists: {}", adminEmail);
@@ -59,7 +65,7 @@ public class AdminSeeder implements ApplicationListener<ContextRefreshedEvent> {
         User admin = new User()
                 .setFullName("Super Admin")
                 .setEmail(adminEmail)
-                .setPassword(passwordEncoder.encode(PASSWORD))
+                .setPassword(passwordEncoder.encode(adminPassword))
                 .setRole(optionalRole.get());
 
         userRepository.save(admin);

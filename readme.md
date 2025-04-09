@@ -1,6 +1,1 @@
-podman run -d --name sonar-db \
--e POSTGRES_USER=sonar \
--e POSTGRES_PASSWORD=sonar \
--e POSTGRES_DB=sonarqube \
--p 5432:5432 \
-docker.io/library/postgres:latest
+./mvnw clean verify sonar:sonar "-Dsonar.projectKey=billing-service" "-Dsonar.projectName=billing-service" "-Dsonar.host.url=http://localhost:9000" "-Dsonar.token=sqp_1ba6d65300077d5ce56ba4def2779503de65fd81"

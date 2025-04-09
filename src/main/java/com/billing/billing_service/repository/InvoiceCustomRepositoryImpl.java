@@ -20,10 +20,6 @@ import java.util.List;
 @Repository
 public class InvoiceCustomRepositoryImpl implements InvoiceCustomRepository {
 
-
-//    @PersistenceContext
-//    private EntityManager entityManager;
-
     private final EntityManager entityManager;
     private final AuditorAware<User> auditorAware;
 

@@ -42,32 +42,15 @@ public class Role {
         return this;
     }
 
-    public String getDescription() {
-        return description;
-    }
+
 
     public Role setDescription(String description) {
         this.description = description;
         return this;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
 
-    public Role setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-        return this;
-    }
 
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public Role setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-        return this;
-    }
 
     @Override
     public String toString() {

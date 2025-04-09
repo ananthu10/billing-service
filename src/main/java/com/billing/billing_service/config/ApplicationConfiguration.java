@@ -41,6 +41,7 @@ public class ApplicationConfiguration {
         return new RestTemplate();
     }
     @Bean
+    @SuppressWarnings("java:S1874")
     AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 

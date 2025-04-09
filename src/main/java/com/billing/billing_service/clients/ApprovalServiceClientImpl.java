@@ -35,7 +35,7 @@ public class ApprovalServiceClientImpl implements ApprovalServiceClient {
         return response.getBody() != null && response.getBody();
     }
 
-    public boolean fallbackApproval(PaymentInformationDTO paymentInformationDTO, Throwable t) {
+    public boolean fallbackApproval(Throwable t) {
         logger.error("Approval Service failed: {}", t.getMessage(), t);
         return false;
     }

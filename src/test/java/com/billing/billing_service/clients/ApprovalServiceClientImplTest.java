@@ -25,7 +25,7 @@ class ApprovalServiceClientImplTest {
 
     @Test
     void testIsPaymentApproved_ReturnsTrue() {
-        // Arrange
+
         PaymentInformationDTO paymentDTO = new PaymentInformationDTO(); // Add fields if needed
         when(approvalServiceConfig.getUrl()).thenReturn("http://mock-approval-service");
         when(restTemplate.postForEntity(
@@ -34,10 +34,8 @@ class ApprovalServiceClientImplTest {
                 eq(Boolean.class)
         )).thenReturn(ResponseEntity.ok(true));
 
-        // Act
         boolean result = approvalServiceClient.isPaymentApproved(paymentDTO);
 
-        // Assert
         assertTrue(result);
     }
 
@@ -73,10 +71,9 @@ class ApprovalServiceClientImplTest {
 
     @Test
     void testFallbackApproval_ReturnsFalseAndLogsError() {
-        PaymentInformationDTO paymentDTO = new PaymentInformationDTO();
-        Throwable exception = new RuntimeException("Service down");
 
-        boolean result = approvalServiceClient.fallbackApproval(paymentDTO, exception);
+        Throwable exception = new RuntimeException("Service down");
+        boolean result = approvalServiceClient.fallbackApproval( exception);
 
         assertFalse(result);
     }
