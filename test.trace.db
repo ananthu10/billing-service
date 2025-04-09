@@ -1,0 +1,3 @@
+2025-04-03 17:24:06.068496+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ROLES" not found; SQL statement:
+select r1_0.id,r1_0.created_at,r1_0.description,r1_0.name,r1_0.updated_at from roles r1_0 where r1_0.name=? [42102-232]
