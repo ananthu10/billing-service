@@ -41,7 +41,6 @@ class JwtAuthenticationFilterTest {
         response = mock(HttpServletResponse.class);
         filterChain = mock(FilterChain.class);
 
-        // Clear security context before every test
         SecurityContextHolder.clearContext();
     }
 

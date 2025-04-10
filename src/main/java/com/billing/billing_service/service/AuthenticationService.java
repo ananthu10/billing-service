@@ -21,13 +21,15 @@ public class AuthenticationService {
             UserRepository userRepository,
             AuthenticationManager authenticationManager
     ) {
+
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
 
     }
 
     public User authenticate(LoginUserDto input) {
-        authenticationManager.authenticate(
+
+       authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         input.getEmail(),
                         input.getPassword()
@@ -38,6 +40,7 @@ public class AuthenticationService {
     }
 
     public List<User> allUsers() {
+
         List<User> users = new ArrayList<>();
         userRepository.findAll().forEach(users::add);
         return users;

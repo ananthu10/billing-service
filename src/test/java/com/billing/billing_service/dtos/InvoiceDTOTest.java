@@ -64,7 +64,7 @@ class InvoiceDTOTest {
 
     @Test
     void testToEntity() {
-        // Mock BillingLineDTO
+
         BillingLineDTO lineDTO1 = new BillingLineDTO();
         lineDTO1.setId(1L);
 

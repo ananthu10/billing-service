@@ -20,6 +20,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
@@ -34,6 +35,7 @@ public class UserService {
     }
 
     public User createUser(RegisterUserDto input) {
+
         Optional<Role> optionalRole = roleRepository.findByName(input.getRole());
 
         if (optionalRole.isEmpty()) {
@@ -46,6 +48,7 @@ public class UserService {
                 .setPassword(passwordEncoder.encode(input.getPassword()))
                 .setRole(optionalRole.get());
          user = userRepository.save(user);
+
         return user;
     }
 }

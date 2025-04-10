@@ -24,7 +24,6 @@ class JwtServiceTest {
     void setUp() throws Exception {
         jwtService = new JwtService();
 
-        // Inject secret key and expiration using reflection since @Value doesn't work in plain unit tests
         Field secretKeyField = JwtService.class.getDeclaredField("secretKey");
         secretKeyField.setAccessible(true);
         secretKeyField.set(jwtService, secretKey);

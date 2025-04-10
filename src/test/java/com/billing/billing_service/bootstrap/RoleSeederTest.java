@@ -30,7 +30,6 @@ class RoleSeederTest {
 
     @Test
     void testAllRolesAlreadyExist_NoNewRoleSaved() {
-        // All roles already exist
         for (RoleEnum roleEnum : RoleEnum.values()) {
             when(roleRepository.findByName(roleEnum)).thenReturn(Optional.of(new Role().setName(roleEnum)));
         }

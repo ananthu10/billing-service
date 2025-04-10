@@ -48,7 +48,7 @@ public class AdminSeeder implements ApplicationListener<ContextRefreshedEvent> {
     }
 
     private void createSuperAdministrator() {
-        // 1. Check if SUPER_ADMIN role exists
+
         Optional<Role> optionalRole = roleRepository.findByName(RoleEnum.SUPER_ADMIN);
         if (optionalRole.isEmpty()) {
             logger.error("SUPER_ADMIN role not found! Did RoleSeeder run?");

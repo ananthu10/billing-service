@@ -40,17 +40,14 @@ class UserServiceTest {
 
     @Test
     void testAllUsers_ShouldReturnAllUsers() {
-        // Arrange
         User user1 = new User().setId(1).setFullName("John").setEmail("john@example.com");
         User user2 = new User().setId(2).setFullName("Jane").setEmail("jane@example.com");
 
         List<User> users = List.of(user1, user2);
         when(userRepository.findAll()).thenReturn(users);
 
-        // Act
         List<User> result = userService.allUsers();
 
-        // Assert
         assertEquals(2, result.size());
         assertEquals("john@example.com", result.get(0).getUsername());
         assertEquals("jane@example.com", result.get(1).getUsername());
@@ -59,7 +56,6 @@ class UserServiceTest {
 
     @Test
     void testCreateUser_WhenRoleExists_ShouldCreateAndReturnUser() {
-        // Arrange
         RegisterUserDto dto = new RegisterUserDto()
                 .setFullName("Alice")
                 .setEmail("alice@example.com")
@@ -76,10 +72,8 @@ class UserServiceTest {
         ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
         when(userRepository.save(userCaptor.capture())).thenAnswer(inv -> inv.getArgument(0));
 
-        // Act
         User createdUser = userService.createUser(dto);
 
-        // Assert
         assertNotNull(createdUser);
         assertEquals("Alice", createdUser.getFullName());
         assertEquals("alice@example.com", createdUser.getUsername());

@@ -34,7 +34,7 @@ class AdminControllerTest {
         registerUserDto = new RegisterUserDto();
         registerUserDto.setEmail("admin@example.com");
         registerUserDto.setPassword("password123");
-        registerUserDto.setRole(RoleEnum.SUPER_ADMIN);  // Assuming this is string mapped to RoleEnum.ADMIN
+        registerUserDto.setRole(RoleEnum.SUPER_ADMIN); 
         registerUserDto.setFullName("Admin User");
 
         Role role = new Role()
@@ -51,13 +51,13 @@ class AdminControllerTest {
 
     @Test
     void testCreateUser_Success() {
+
         when(userService.createUser(registerUserDto)).thenReturn(user);
 
         ResponseEntity<User> response = adminController.createUser(registerUserDto);
 
-
         assertEquals("admin@example.com", response.getBody().getUsername());
-        assertEquals("Admin User", response.getBody().getFullName()); // ✅ fixed this line
+        assertEquals("Admin User", response.getBody().getFullName());
         assertEquals(RoleEnum.SUPER_ADMIN, response.getBody().getRole().getName());
 
         verify(userService, times(1)).createUser(registerUserDto);

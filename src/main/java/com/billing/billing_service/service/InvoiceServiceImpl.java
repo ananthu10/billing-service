@@ -35,6 +35,7 @@ public class InvoiceServiceImpl {
     public InvoiceServiceImpl(InvoiceRepository invoiceRepository,
                               UserRepository userRepository, ApprovalServiceClient approvalServiceClient,
                               AuditorAware<User> auditorAware) {
+
         this.invoiceRepository = invoiceRepository;
         this.userRepository = userRepository;
         this.approvalServiceClient = approvalServiceClient;
@@ -96,7 +97,7 @@ public class InvoiceServiceImpl {
         Invoice invoice = invoiceRepository.findById(id)
                 .orElseThrow(() -> new InvoiceNotFoundException(id));
 
-        authorizeBuyerOrSuperAdmin(invoice);
+        authorizeSupplierOrSuperAdmin(invoice);
 
         Invoice updatedInvoice = invoiceDTO.toEntity();
 
@@ -151,7 +152,7 @@ public class InvoiceServiceImpl {
     public void deleteInvoice(Long id) {
         Invoice invoice = invoiceRepository.findById(id)
                 .orElseThrow(() -> new InvoiceNotFoundException(id));
-        authorizeBuyerOrSuperAdmin(invoice);
+        authorizeSupplierOrSuperAdmin(invoice);
         invoiceRepository.deleteById(id);
     }
 
@@ -207,7 +208,7 @@ public class InvoiceServiceImpl {
         return invoicePage.map(InvoiceDTO::fromEntity);
     }
 
-    public void authorizeBuyerOrSuperAdmin(Invoice invoice) {
+    public void authorizeSupplierOrSuperAdmin(Invoice invoice) {
 
         User currentUser = auditorAware.getCurrentAuditor()
                 .orElseThrow(() -> new AccessDeniedException(USER_NOT_AUTHENTICATED));

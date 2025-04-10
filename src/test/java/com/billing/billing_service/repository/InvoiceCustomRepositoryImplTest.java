@@ -81,12 +81,10 @@ class InvoiceCustomRepositoryImplTest {
         when(invoiceRoot.get("seller").get("id")).thenReturn(mock(Path.class));
         when(invoiceRoot.get("id")).thenReturn(mock(Path.class));
 
-        // Sorting
         Order mockOrder = mock(Order.class);
         when(criteriaBuilder.asc(any())).thenReturn(mockOrder);
         when(criteriaBuilder.count(invoiceRoot)).thenReturn(mock(Expression.class));
 
-        // Typed query
         when(entityManager.createQuery(criteriaQuery)).thenReturn(typedQuery);
         when(entityManager.createQuery(countQuery)).thenReturn(typedCountQuery);
 

@@ -255,7 +255,7 @@ class InvoiceServiceImplTest {
         when(auditorAware.getCurrentAuditor()).thenReturn(Optional.of(unauthorizedUser));
 
         assertThrows(AccessDeniedException.class, () -> {
-            invoiceService.authorizeBuyerOrSuperAdmin(invoiceEntity);
+            invoiceService.authorizeSupplierOrSuperAdmin(invoiceEntity);
         });
     }
 

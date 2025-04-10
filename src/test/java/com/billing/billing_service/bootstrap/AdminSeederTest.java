@@ -31,9 +31,9 @@ class AdminSeederTest {
 
     @BeforeEach
     void setUp() {
+
         MockitoAnnotations.openMocks(this);
 
-        // Inject values for @Value fields using reflection
         adminSeeder = new AdminSeeder(roleRepository, userRepository, passwordEncoder);
         TestUtils.setField(adminSeeder, "adminUsername", "super.admin@email.com");
         TestUtils.setField(adminSeeder, "adminPassword", "123456");

@@ -3,6 +3,7 @@ package com.billing.billing_service.clients;
 import com.billing.billing_service.config.ApprovalServiceConfig;
 import com.billing.billing_service.dtos.PaymentInformationDTO;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +23,11 @@ public class ApprovalServiceClientImpl implements ApprovalServiceClient {
         this.approvalServiceConfig = approvalServiceConfig;
     }
 
-
     @CircuitBreaker(name = "approvalService", fallbackMethod = "fallbackApproval")
+    @Retry(name = "approvalService")
     @Override
     public boolean isPaymentApproved(PaymentInformationDTO paymentInformationDTO) {
+        logger.info("Approval Service failed: real method");
         String approvalServiceUrl = approvalServiceConfig.getUrl();
         ResponseEntity<Boolean> response = restTemplate.postForEntity(
                 approvalServiceUrl,
